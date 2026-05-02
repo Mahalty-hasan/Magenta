@@ -1,0 +1,15 @@
+{
+  "name": "Zaplo",
+  "description": "High-performance enterprise workflow automation platform with intelligent quality checks and human-in-the-loop integration.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "Workflow Builder",
+    "Real-time Tracking",
+    "Team Collaboration",
+    "Quality Validation"
+  ]
+}

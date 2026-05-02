@@ -1,0 +1,83 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "role": { "type": "string", "enum": ["admin", "member"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email"]
+    },
+    "Workflow": {
+      "title": "Workflow",
+      "description": "Definition of an automation workflow",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "ownerId": { "type": "string" },
+        "status": { "type": "string", "enum": ["active", "paused", "draft"] },
+        "config": { "type": "object" },
+        "steps": { "type": "array" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "name", "ownerId"]
+    },
+    "Task": {
+      "title": "Task",
+      "description": "An execution instance of a workflow",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "workflowId": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "running", "completed", "failed", "human_check"] },
+        "currentStepIndex": { "type": "number" },
+        "inputData": { "type": "object" },
+        "outputData": { "type": "object" },
+        "assignedTo": { "type": "string" },
+        "error": { "type": "string" },
+        "startedAt": { "type": "string", "format": "date-time" },
+        "completedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "workflowId", "status"]
+    },
+    "Log": {
+      "title": "Log",
+      "description": "Activity log for events",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "entityId": { "type": "string" },
+        "message": { "type": "string" },
+        "type": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      }
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Direct user profile access"
+    },
+    "/workflows/{workflowId}": {
+      "schema": "Workflow",
+      "description": "Workflow definitions"
+    },
+    "/tasks/{taskId}": {
+      "schema": "Task",
+      "description": "Execution tasks"
+    },
+    "/logs/{logId}": {
+      "schema": "Log",
+      "description": "Audit logs"
+    }
+  }
+}
